@@ -1,10 +1,23 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from controllers.employeeController import employeeController
+from controllers.userController import userController
 
 app = Flask(__name__)
 
 @app.route('/')
-def login():
+def loginPage():
     return render_template('loginPage.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    uuu = userController.get_user_by_username_and_password(username, password)
+    if uuu is None:
+        return 'Invalid username or password'
+    else:
+        return render_template('dashboardPage.html')
 
 @app.route('/dashboardPage')
 def dashboard():
@@ -20,4 +33,4 @@ def dashboard():
 #     return 'This is requestPage'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
