@@ -8,8 +8,8 @@ class user(Base):
 
     userID = Column(Integer, primary_key=True)
     username = Column(String)
-    lastname = Column(String)
-    birthdate = Column(String)
+    password = Column(String)
+    role = Column(String)
     employeeID = Column(String)
 
     def __init__(self, userID, username, password, role, employeeID):
