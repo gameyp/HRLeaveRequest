@@ -51,10 +51,8 @@
 
 <body>
 
-    <form action="/addRequest" method="post">
-        <!-- Employee ID, StartDate, EndDate, LeaveReason, LeaveType -->
-        <label for="employeeID">Employee ID:</label>
-        <input type="text" id="employeeID" name="employeeID" required>
+    <form action="/addRequest" method="post" onsubmit="return validateDates()">
+        <!-- StartDate, EndDate, LeaveReason, LeaveType -->
 
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" required>
@@ -77,6 +75,18 @@
     </form>
 
     <script>
+        function validateDates() {
+            var startDate = new Date(document.getElementById('startDate').value);
+            var endDate = new Date(document.getElementById('endDate').value);
+
+            if (startDate > endDate) {
+                alert('End Date must be greater than or equal to Start Date.');
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
+
         function cancelRequest() {
             // Redirect to the dashboard or any other page
             window.location.href = "/dashboardLeaveRequest";
