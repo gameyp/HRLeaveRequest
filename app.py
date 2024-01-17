@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from controllers.employeeController import employeeController
 from controllers.userController import userController
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///HRLeaveRequest.db'
+db = SQLAlchemy(app)
 
 @app.route('/')
 def loginPage():
@@ -17,20 +20,21 @@ def login():
     if uuu is None:
         return 'Invalid username or password'
     else:
-        return render_template('dashboardPage.html')
+        return redirect(url_for('dashboard'))
 
-@app.route('/dashboardPage')
+@app.route('/dashboard')
 def dashboard():
-    return 'This is dashboardPage'
+    user = {'firstname': 'Test', 'lastname': 'User'}
+    employees = employeeController.get_employees()
+    return render_template('dashboardPage.html', user=user, employees=employees)
 
-# Uncomment the following routes if needed
-# @app.route('/modifyPage')
-# def page3():
-#     return 'This is modifyPage'
+@app.route('/modifyPage')
+def page3():
+    return 'This is modifyPage'
 
-# @app.route('/requestPage')
-# def page4():
-#     return 'This is requestPage'
+@app.route('/requestPage')
+def request_page():
+    return render_template('requestPage.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,67 @@
+<!-- FILEPATH: /Users/gameyp/Desktop/SWE/Week1/HRLeaveRequest/templates/requestPage.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Request Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button.cancel-btn {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+<form>
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="date">Date of Leave:</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="reason">Reason for Leave:</label>
+    <textarea id="reason" name="reason" rows="4" required></textarea>
+
+    <button type="submit">Send</button>
+    <button type="button" class="cancel-btn" onclick="cancelRequest()">Cancel</button>
+</form>
+
+<script>
+    function cancelRequest() {
+        // Redirect to the dashboard or any other page
+        window.location.href = "/dashboard";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!-- FILEPATH: /Users/gameyp/Desktop/SWE/Week1/HRLeaveRequest/templates/dashboard.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div>
+        <span>Welcome</span>
+    </div>
+    <div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <button class="request-btn" onclick="goToRequest()">Request Leave</button>
+    </div>
+</nav>
+
+<div>
+    <h2>Employee List</h2>
+
+    <!-- <table>
+        <thead>
+            <tr>
+                <th>EmployeeID</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Birthdate</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.employeeID }}</td>
+                    <td>{{ employee.firstname }}</td>
+                    <td>{{ employee.lastname }}</td>
+                    <td>{{ employee.birthdate }}</td>
+                    <td>{{ employee.department }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> -->
+</div>
+
+<script>
+    function logout() {
+        // Redirect to the login page with a GET request
+        window.location.href = "/login";
+    }
+
+    function goToRequest() {
+        // Redirect to the request page with a GET request
+        window.location.href = "/requestPage";
+    }
+</script>
+
+</body>
+</html>
