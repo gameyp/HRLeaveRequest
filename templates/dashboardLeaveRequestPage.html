@@ -45,7 +45,7 @@
 
     <nav>
         <div>
-            <span>Welcome</span>
+            <span>Welcome, {{ user.firstname }}</span>
         </div>
         <div>
             <button class="logout-btn" onclick="logout()">Logout</button>
@@ -68,7 +68,7 @@
         <tbody>
             {% for item in lstrequests %}
             <tr>
-                <td>{{ "Employee ID: " + item.request.employeeID.__str__() + " " + item.employee.firstname + " " +
+                <td>{{ "Employee ID: " + item.employee.employeeID.__str__() + " " + item.employee.firstname + " " +
                     item.employee.lastname }}</td>
                 <td>{{ item.request.leaveType }}</td>
                 <td>{{ item.request.requestReason }}</td>

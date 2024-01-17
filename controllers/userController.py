@@ -34,5 +34,6 @@ class userController:
             Session = sessionmaker(bind=engine)
             session = Session()
     
-            users = session.query(user).filter_by(username=username, password=password).first()
+            users = session.query(user, employee).join(employee, user.employeeID == employee.employeeID).filter(user.username == username, user.password == password).first()
+            # users = session.query(user).filter_by(username=username, password=password).first()
             return users  

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from controllers.employeeController import employeeController
 from controllers.userController import userController
@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///HRLeaveRequest.db'
 db = SQLAlchemy(app)
+app.secret_key = 'gamie'
 
 @app.route('/')
 def loginPage():
@@ -20,8 +21,13 @@ def login():
     uuu = userController.get_user_by_username_and_password(username, password)
     if uuu is None:
         return 'Invalid username or password'
+    elif uuu.employee is None:
+        return 'User does not have an associated employee'
+
     else:
+        session['userinfo'] = {'firstname': uuu.employee.firstname, 'lastname': uuu.employee.lastname, 'username': uuu.user.username, 'employeeID': uuu.user.employeeID, 'role': uuu.user.role}
         return redirect(url_for('dashboardLeaveRequest'))
+        # return redirect(url_for('dashboardLeaveRequest'))
     
 @app.route('/dashboard')
 def dashboard():
@@ -29,15 +35,23 @@ def dashboard():
     employees = employeeController.get_employees()
     return render_template('dashboardPage.html', user=user, employees=employees)
 
+
 @app.route('/dashboardLeaveRequest')
 def dashboardLeaveRequest():
-    employeerequests = requestController.get_request_and_employee_data()
-
-    return render_template('dashboardLeaveRequestPage.html', lstrequests=employeerequests)
+    if 'userinfo' in session:
+        ddd = session['userinfo']
+        aa = {'firstname': ddd['firstname'], 'lastname': ddd['lastname'], 'username': ddd['username'], 'employeeID': ddd['employeeID'], 'role': ddd['role']}
+        employeerequests = requestController.get_request_and_employee_data()
+        return render_template('dashboardLeaveRequestPage.html', lstrequests=employeerequests, user=aa)
+    
+    return redirect(url_for('login'))
 
 @app.route('/requestPage')
 def request_page():
-    return render_template('requestPage.html')
+    if 'userinfo' in session:
+        return render_template('requestPage.html')
+    
+    return redirect(url_for('login'))
 
 # @app.route('/editRequestPage')
 # def editRequestByRequestId():
@@ -63,14 +77,21 @@ def request_page():
 
 @app.route('/addRequest', methods=['POST'])
 def addRequest():
-    startDate = request.form.get('startDate')
-    endDate = request.form.get('endDate')
-    leaveType = request.form.get('leaveType')
-    requestReason = request.form.get('requestReason')
-    employeeID = request.form.get('employeeID')
+    if 'userinfo' in session:
+        ddd = session['userinfo']
+        
 
-    requestController.create_request(employee_id=employeeID, start_date=startDate, end_date=endDate, leaveType=leaveType, reason= requestReason , status='Approved')
-    return redirect(url_for('dashboardLeaveRequest'))
+        startDate = request.form.get('startDate')
+        endDate = request.form.get('endDate')
+        leaveType = request.form.get('leaveType')
+        requestReason = request.form.get('requestReason')
+        employeeID = ddd['employeeID']
+
+        requestController.create_request(employee_id=employeeID, start_date=startDate, end_date=endDate, leaveType=leaveType, reason= requestReason , status='Approved')
+        return redirect(url_for('dashboardLeaveRequest'))
+    
+    
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
