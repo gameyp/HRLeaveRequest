@@ -52,7 +52,9 @@
 <body>
 
     <form action="/addRequest" method="post" onsubmit="return validateDates()">
-        <!-- StartDate, EndDate, LeaveReason, LeaveType -->
+        <!-- Employee ID, StartDate, EndDate, LeaveReason, LeaveType -->
+        <label for="employeeID">Employee ID:</label>
+        <input type="text" id="employeeID" name="employeeID" required>
 
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate" name="startDate" required>
