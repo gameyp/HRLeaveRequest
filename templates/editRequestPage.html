@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Request</title>
+</head>
+<body>
+    <h1>Update Request</h1>
+    <form action="/updateRequest" method="POST">
+        <label for="requestId">Request ID:</label>
+        <input type="text" id="requestId" name="requestId" disabled="disabled" required><br><br>
+        
+        <label for="reason">Reason:</label>
+        <textarea id="reason" name="reason" required></textarea><br><br>
+        
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required><br><br>
+        
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required><br><br>
+
+        <label for="leaveType">Leave Type:</label>
+        <select name="leaveType" id="leaveType" required>
+            <option value="Annual Leave">Annual Leave</option>
+            <option value="Medical Leave">Medical Leave</option>
+            <option value="Unpaid Leave">Unpaid Leave</option>
+        </select>
+        
+        <input type="submit" value="Update Request">
+    </form>
+</body>
+</html>

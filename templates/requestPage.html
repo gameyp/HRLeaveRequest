@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
         body {
             font-family: Arial, sans-serif;
         }
+
         form {
             max-width: 400px;
             margin: 20px auto;
@@ -17,16 +19,21 @@
             border: 1px solid #ddd;
             border-radius: 8px;
         }
+
         label {
             display: block;
             margin-bottom: 8px;
         }
-        input, textarea {
+
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 8px;
             margin-bottom: 16px;
             box-sizing: border-box;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -35,33 +42,46 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button.cancel-btn {
             background-color: #f44336;
         }
     </style>
 </head>
+
 <body>
 
-<form>
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" required>
+    <form action="/addRequest" method="post">
+        <!-- Employee ID, StartDate, EndDate, LeaveReason, LeaveType -->
+        <label for="employeeID">Employee ID:</label>
+        <input type="text" id="employeeID" name="employeeID" required>
 
-    <label for="date">Date of Leave:</label>
-    <input type="date" id="date" name="date" required>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
 
-    <label for="reason">Reason for Leave:</label>
-    <textarea id="reason" name="reason" rows="4" required></textarea>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
 
-    <button type="submit">Send</button>
-    <button type="button" class="cancel-btn" onclick="cancelRequest()">Cancel</button>
-</form>
+        <label for="requestReason">Reason for Leave:</label>
+        <textarea id="requestReason" name="requestReason" rows="4" required></textarea>
 
-<script>
-    function cancelRequest() {
-        // Redirect to the dashboard or any other page
-        window.location.href = "/dashboard";
-    }
-</script>
+        <label for="leaveType">Leave Type:</label>
+        <select id="leaveType" name="leaveType" required>
+            <option value="unpaidLeave">Unpaid Leave</option>
+            <option value="medicalLeave">Medical Leave</option>
+            <option value="annualLeave">Annual Leave</option>
+        </select>
+
+        <button type="submit">Send</button>
+        <button type="button" class="cancel-btn" onclick="cancelRequest()">Cancel</button>
+    </form>
+
+    <script>
+        function cancelRequest() {
+            // Redirect to the dashboard or any other page
+            window.location.href = "/dashboardLeaveRequest";
+        }
+    </script>
 
 </body>
 </html>

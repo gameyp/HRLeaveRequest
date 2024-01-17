@@ -1,0 +1,99 @@
+<!-- FILEPATH: /templates/dashboardLeaveRequestPage.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Leave Request List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logout-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div>
+            <span>Welcome</span>
+        </div>
+        <div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+            <button class="request-btn" onclick="window.location.href='/requestPage'">Create New Leave Request</button>
+            <!-- <button class="request-btn" onclick="goToRequest()">Request Leave</button> -->
+        </div>
+    </nav>
+    <h1>Leave Request List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
+                <th>Leave Reason</th>
+                <th>Start Date</th>
+                <!-- <th>Status</th> -->
+                <!-- <th>Action</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in lstrequests %}
+            <tr>
+                <td>{{ "Employee ID: " + item.request.employeeID.__str__() + " " + item.employee.firstname + " " +
+                    item.employee.lastname }}</td>
+                <td>{{ item.request.leaveType }}</td>
+                <td>{{ item.request.requestReason }}</td>
+                <td>{{ item.request.startLeaveDate + " to " + item.request.endLeaveDate }}</td>
+                <!-- <td>{{ item.request.requestStatus }}</td> -->
+                <!-- <td>
+                    <button href="/editRequestPage/requestID={{ item.request.requestID }}">Edit</button>
+                    <button onclick="myFunction()">Delete</button>
+                </td> -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        function logout() {
+            // Redirect to the login page with a GET request
+            window.location.href = "/login";
+        }
+    
+        function goToRequest() {
+            // Redirect to the request page with a GET request
+            // window.location.href = "/requestPage";
+            window.location.href = "/dashboardLeaveRequest";
+        }
+    </script>
+</body>
+
+</html>

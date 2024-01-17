@@ -10,7 +10,6 @@ class userController:
             Session = sessionmaker(bind=engine)
             session = Session()
     
-            
             users = session.query(user).all()
             return users
         

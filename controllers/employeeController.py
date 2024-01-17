@@ -9,7 +9,6 @@ class employeeController:
         Session = sessionmaker(bind=engine)
         session = Session()
 
-        
         employees = session.query(employee).all()
         return employees
     
@@ -28,4 +27,3 @@ class employeeController:
 
         employees = session.query(employee).filter_by(firstname=firstname).first()
         return employees  
-
